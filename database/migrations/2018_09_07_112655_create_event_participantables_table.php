@@ -13,7 +13,7 @@ class CreateEventParticipantablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_participantables', function (Blueprint $table) {
+        Schema::create('participantables', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('event_id')->unsigned()->index();
             $table->integer('participantable_id')->unsigned()->index();
@@ -29,6 +29,6 @@ class CreateEventParticipantablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_participantables');
+        Schema::dropIfExists('participantables');
     }
 }
