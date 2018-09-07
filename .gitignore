@@ -1,0 +1,10 @@
+/node_modules
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+.env
+/bootstrap/compiled.php
+.DS_Store
+atlassian-ide-plugin.xml
+.vagrant
