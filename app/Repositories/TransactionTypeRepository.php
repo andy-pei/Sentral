@@ -11,12 +11,12 @@ namespace App\Repositories;
 
 use App\Models\TransactionTypeModel;
 
-class TransactionTypeRepository
+class TransactionTypeRepository extends BaseRepository
 {
     /**
      * @var TransactionTypeModel
      */
-    private $model;
+    protected $model;
 
     /**
      * TransactionTypeRepository constructor.

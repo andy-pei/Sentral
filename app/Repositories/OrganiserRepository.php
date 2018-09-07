@@ -11,12 +11,12 @@ namespace App\Repositories;
 
 use App\Models\OrganiserModel;
 
-class OrganiserRepository
+class OrganiserRepository extends BaseRepository
 {
     /**
      * @var OrganiserModel
      */
-    private $model;
+    protected $model;
 
     /**
      * OrganiserRepository constructor.

@@ -11,12 +11,12 @@ namespace App\Repositories;
 
 use App\Models\StaffModel;
 
-class StaffRepository
+class StaffRepository extends BaseRepository
 {
     /**
      * @var StaffModel
      */
-    private $model;
+    protected $model;
 
     /**
      * StaffRepository constructor.

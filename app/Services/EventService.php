@@ -26,4 +26,9 @@ class EventService
     {
         $this->eventRepository = $eventRepository;
     }
+
+    public function allEvents()
+    {
+        return $this->eventRepository->findAll();
+    }
 }

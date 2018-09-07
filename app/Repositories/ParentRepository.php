@@ -11,12 +11,12 @@ namespace App\Repositories;
 
 use App\Models\ParentModel;
 
-class ParentRepository
+class ParentRepository extends BaseRepository
 {
     /**
      * @var ParentModel
      */
-    private $model;
+    protected $model;
 
     /**
      * ParentRepository constructor.

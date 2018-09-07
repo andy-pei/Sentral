@@ -11,12 +11,12 @@ namespace App\Repositories;
 
 use App\Models\StudentModel;
 
-class StudentRepository
+class StudentRepository extends BaseRepository
 {
     /**
      * @var StudentModel
      */
-    private $model;
+    protected $model;
 
     /**
      * StudentRepository constructor.

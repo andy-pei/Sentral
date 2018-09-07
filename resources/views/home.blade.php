@@ -8,7 +8,11 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    Welcome to Sentral!
+                    <ul>
+                        <li><a href="events">Users</a></li>
+                        <li><a href="events">Events</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

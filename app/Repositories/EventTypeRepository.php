@@ -11,12 +11,12 @@ namespace App\Repositories;
 
 use App\Models\EventTypeModel;
 
-class EventTypeRepository
+class EventTypeRepository extends BaseRepository
 {
     /**
      * @var EventTypeModel
      */
-    private $model;
+    protected $model;
 
     /**
      * EventTypeRepository constructor.
