@@ -41,4 +41,8 @@ abstract class BaseRepository
 
         return $model->delete();
     }
+
+    public function findAllWithIdName() {
+        return $this->model->pluck('name', 'id')->all();
+    }
 }

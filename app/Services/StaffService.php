@@ -26,4 +26,9 @@ class StaffService
     {
         $this->staffRepository = $staffRepository;
     }
+
+    public function getAllWithIdName()
+    {
+        return $this->staffRepository->findAllWithIdName();
+    }
 }

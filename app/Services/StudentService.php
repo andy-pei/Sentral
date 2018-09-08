@@ -26,4 +26,9 @@ class StudentService
     {
         $this->studentRepository = $studentRepository;
     }
+
+    public function getAllWithIdName()
+    {
+        return $this->studentRepository->findAllWithIdName();
+    }
 }

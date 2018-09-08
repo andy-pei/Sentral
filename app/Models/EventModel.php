@@ -28,7 +28,7 @@ class EventModel extends Model
         return $this->morphedByMany('App\Models\StaffModel', 'participantable', null, 'event_id');
     }
 
-    public function volunteer()
+    public function volunteers()
     {
         return $this->morphedByMany('App\Models\VolunteerModel', 'participantable', null, 'event_id');
     }

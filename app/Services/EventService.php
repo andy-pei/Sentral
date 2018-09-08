@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Models\EventModel;
 use App\Repositories\EventRepository;
 
 class EventService
@@ -55,5 +56,33 @@ class EventService
     {
         $event = $this->getEventById($eventId);
         $event->organisers()->sync($organisers);
+    }
+
+    public function participantsForType($type)
+    {
+
+        switch ($type) {
+            case 'students':
+                $studentService = app(StudentService::class);
+                return $studentService->getAllWithIdName();
+            case 'parents':
+                $parentService = app(ParentService::class);
+                return $parentService->getAllWithIdName();
+            case 'staffs':
+                $staffService = app(StaffService::class);
+                return $staffService->getAllWithIdName();
+            case 'volunteers':
+                $volunteerService = app(VolunteerService::class);
+                return $volunteerService->getAllWithIdName();
+            default:
+                \Log::error('EventService (participantsForType): Invalid Participant Type');
+
+        }
+    }
+
+    public function storeParticipants($eventId, $participants, $participantType)
+    {
+        $event = $this->getEventById($eventId);
+        $event->{$participantType}()->sync($participants);
     }
 }

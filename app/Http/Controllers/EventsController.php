@@ -151,4 +151,47 @@ class EventsController extends Controller
         $this->eventService->storeOrganisers($eventId, Input::get('organisers'));
         return redirect('events/'.$eventId.'/organisers');
     }
+
+    public function invitedParticipants($eventId)
+    {
+        $event = $this->eventService->getEventById($eventId);
+        $students = $event->students;
+        $parents = $event->parents;
+        $staffs = $event->staffs;
+        $volunteers = $event->volunteers;
+
+        return view('events.participants.index')->with([
+            'event' => $event,
+            'students' => $students,
+            'parents' => $parents,
+            'staffs' => $staffs,
+            'volunteers' => $volunteers
+        ]);
+    }
+
+    public function updateInvitedParticipants($eventId)
+    {
+        $event = $this->eventService->getEventById($eventId);
+
+        $participantType = Input::get('type');
+
+        $participantsForType = $this->eventService->participantsForType($participantType);
+
+        return view('events.participants.update')->with([
+            'participants' => $participantsForType,
+            'participantType' => $participantType,
+            'event' => $event
+        ]);
+
+    }
+
+    public function storeInvitedParticipants($eventId)
+    {
+        $type = Input::get('type');
+        $participants = Input::get('participants');
+
+        $this->eventService->storeParticipants($eventId, $participants, $type);
+
+        return redirect('events/'.$eventId.'/participants');
+    }
 }

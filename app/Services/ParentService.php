@@ -26,4 +26,9 @@ class ParentService
     {
         $this->parentRepository = $parentRepository;
     }
+
+    public function getAllWithIdName()
+    {
+        return $this->parentRepository->findAllWithIdName();
+    }
 }

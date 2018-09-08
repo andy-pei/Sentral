@@ -25,4 +25,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('events/{id}/organisers', 'EventsController@organisers');
     Route::get('events/{id}/organisers/add', 'EventsController@addOrganisers');
     Route::post('events/{id}/organisers/add', 'EventsController@storeOrganisers');
+    Route::get('events/{id}/participants', 'EventsController@invitedParticipants');
+    Route::get('events/{id}/participants/update', 'EventsController@updateInvitedParticipants');
+    Route::post('events/{id}/participants/update', 'EventsController@storeInvitedParticipants');
 });

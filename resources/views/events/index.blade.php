@@ -29,6 +29,7 @@
                         <td>{{$event->venue}}</td>
                         <td>
                             <a href="{{URL::to('events/'.$event->id.'/organisers')}}"><button class="btn btn-primary">Organisers</button></a>
+                            <a href="{{URL::to('events/'.$event->id.'/participants')}}"><button class="btn btn-primary">Invited</button></a>
                             <a href="{{URL::to('events/'.$event->id.'/edit')}}"><button class="btn btn-primary">Edit</button></a>
                             <a href="{{URL::to('events/delete/'.$event->id)}}"><button class="btn btn-primary">Delete</button></a>
                         </td>
