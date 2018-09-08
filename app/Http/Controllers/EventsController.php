@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\EventService;
 use App\Services\EventTypeService;
+use App\Services\OrganiserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -119,5 +120,35 @@ class EventsController extends Controller
     {
         $this->eventService->deleteById($id);
         return redirect('events');
+    }
+
+    public function organisers($eventId)
+    {
+        $event = $this->eventService->getEventById($eventId);
+        if($event) {
+            $organisers = $event->organisers;;
+
+        }
+
+        return view('events.organisers.index')->with([
+            'organisers' => $organisers,
+            'event' => $event
+        ]);
+    }
+
+    public function addOrganisers($eventId, OrganiserService $organiserService)
+    {
+        $organisers = $organiserService->getAllWithIdName();
+        $event = $this->eventService->getEventById($eventId);
+        return view('events.organisers.add')->with([
+            'event' => $event,
+            'organisers' => $organisers
+        ]);
+    }
+
+    public function storeOrganisers($eventId)
+    {
+        $this->eventService->storeOrganisers($eventId, Input::get('organisers'));
+        return redirect('events/'.$eventId.'/organisers');
     }
 }

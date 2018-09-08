@@ -50,4 +50,10 @@ class EventService
     {
         return $this->eventRepository->deleteById($id);
     }
+
+    public function storeOrganisers($eventId, $organisers)
+    {
+        $event = $this->getEventById($eventId);
+        $event->organisers()->sync($organisers);
+    }
 }

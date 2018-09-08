@@ -22,4 +22,7 @@ Route::get('/home', 'HomeController@index');
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('events', 'EventsController');
     Route::get('events/delete/{id}', 'EventsController@destroy');
+    Route::get('events/{id}/organisers', 'EventsController@organisers');
+    Route::get('events/{id}/organisers/add', 'EventsController@addOrganisers');
+    Route::post('events/{id}/organisers/add', 'EventsController@storeOrganisers');
 });

@@ -26,4 +26,9 @@ class OrganiserService
     {
         $this->organiserRepository = $organiserRepository;
     }
+
+    public function getAllWithIdName()
+    {
+        return $this->organiserRepository->findAllWithIdName();
+    }
 }
