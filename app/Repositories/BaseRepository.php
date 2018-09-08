@@ -29,4 +29,9 @@ abstract class BaseRepository
     public function create($data) {
         return $this->model->create($data);
     }
+
+    public function updateWithId($id, $data) {
+        $model = $this->find($id);
+        return $model->update($data);
+    }
 }

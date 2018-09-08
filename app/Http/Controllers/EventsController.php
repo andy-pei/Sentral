@@ -87,7 +87,12 @@ class EventsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $eventTypes = $this->eventTypeService->getAllEventTypesWithIdName();
+        $event = $this->eventService->getEventById($id);
+        return view('events/edit')->with([
+            'event' => $event,
+            'eventTypes' => $eventTypes
+        ]);
     }
 
     /**
@@ -99,7 +104,9 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->eventService->updateWithId($id, Input::all());
+
+        return redirect('events');
     }
 
     /**

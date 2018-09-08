@@ -36,4 +36,13 @@ class EventService
     {
         $this->eventRepository->create(array_only($data, ['event_type_id', 'description', 'event_time', 'venue']));
     }
+
+    public function getEventById($id) {
+        return $this->eventRepository->find($id);
+    }
+
+    public function updateWithId($id, $data)
+    {
+        return $this->eventRepository->updateWithId($id, array_only($data, ['event_type_id', 'description', 'event_time', 'venue']));
+    }
 }
