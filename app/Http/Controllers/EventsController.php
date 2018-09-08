@@ -140,7 +140,7 @@ class EventsController extends Controller
     {
         $organisers = $organiserService->getAllWithIdName();
         $event = $this->eventService->getEventById($eventId);
-        return view('events.organisers.add')->with([
+        return view('events.organisers.update')->with([
             'event' => $event,
             'organisers' => $organisers
         ]);
