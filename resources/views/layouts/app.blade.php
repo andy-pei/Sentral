@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/dev.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -83,5 +84,7 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+
+    @yield('footer')
 </body>
 </html>

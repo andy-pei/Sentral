@@ -18,7 +18,7 @@ sudo apt-get install -y php7.1 apache2 libapache2-mod-php7.1 php7.1-curl php7.1-
 
 mysql -u root -proot -e'create database sentral'
 
-cat << EOF | sudo tee -a /etc/php/7.0/mods-available/xdebug.ini
+cat << EOF | sudo tee -a /etc/php/7.1/mods-available/xdebug.ini
 xdebug.remote_enable = on
 xdebug.remote_connect_back = on
 xdebug.idekey = "vagrant"

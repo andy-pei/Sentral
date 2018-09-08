@@ -26,4 +26,13 @@ class EventTypeService
     {
         $this->eventTypeRepository = $eventTypeRepository;
     }
+
+    /**
+     * get all event types only with id and name
+     * @return mixed
+     */
+    public function getAllEventTypesWithIdName()
+    {
+        return $this->eventTypeRepository->findAllWithIdName();
+    }
 }

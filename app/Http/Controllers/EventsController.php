@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Services\EventService;
+use App\Services\EventTypeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class EventsController extends Controller
 {
@@ -11,14 +13,21 @@ class EventsController extends Controller
      * @var EventService
      */
     private $eventService;
+    /**
+     * @var EventTypeService
+     */
+    private $eventTypeService;
 
     /**
      * EventsController constructor.
      * @param EventService $eventService
+     * @param EventTypeService $eventTypeService
      */
-    public function __construct(EventService $eventService)
+    public function __construct(EventService $eventService,
+                                EventTypeService $eventTypeService)
     {
         $this->eventService = $eventService;
+        $this->eventTypeService = $eventTypeService;
     }
 
     /**
@@ -29,7 +38,6 @@ class EventsController extends Controller
     public function index()
     {
         $events = $this->eventService->allEvents();
-
         return view('events.index')->with([
             'events' => $events
         ]);
@@ -42,7 +50,10 @@ class EventsController extends Controller
      */
     public function create()
     {
-        //
+        $eventTypes = $this->eventTypeService->getAllEventTypesWithIdName();
+        return view('events.create')->with([
+            'eventTypes' => $eventTypes
+        ]);
     }
 
     /**
@@ -53,7 +64,8 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->eventService->createEvent(Input::all());
+        return redirect('events');
     }
 
     /**

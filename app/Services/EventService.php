@@ -31,4 +31,9 @@ class EventService
     {
         return $this->eventRepository->findAll();
     }
+
+    public function createEvent($data)
+    {
+        $this->eventRepository->create(array_only($data, ['event_type_id', 'description', 'event_time', 'venue']));
+    }
 }

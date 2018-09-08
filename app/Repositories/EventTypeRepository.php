@@ -27,4 +27,8 @@ class EventTypeRepository extends BaseRepository
 
         $this->model = $model;
     }
+
+    public function findAllWithIdName() {
+        return $this->model->pluck('name', 'id')->all();
+    }
 }
