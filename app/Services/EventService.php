@@ -75,7 +75,7 @@ class EventService
                 $volunteerService = app(VolunteerService::class);
                 return $volunteerService->getAllWithIdName();
             default:
-                \Log::error('EventService (participantsForType): Invalid Participant Type');
+                \Log::error('EventService (participantsForType): Invalid Participant Type - ' . $type);
 
         }
     }
@@ -83,6 +83,50 @@ class EventService
     public function storeParticipants($eventId, $participants, $participantType)
     {
         $event = $this->getEventById($eventId);
-        $event->{$participantType}()->sync($participants);
+        $participantTypesWithFreeEntry = config('permission.free_entry');
+        if(in_array($participantType, $participantTypesWithFreeEntry)) {
+            $participantsTemp = array();
+            foreach ($participants as $participant) {
+                $participantsTemp[$participant] = array('has_permission' => true);
+            }
+            $event->{$participantType}()->sync($participantsTemp);
+        } else {
+            $event->{$participantType}()->sync($participants);
+        }
+    }
+
+    public function getInvitedParticipants(EventModel $event)
+    {
+        $students = $event->students;
+        $parents = $event->parents;
+        $staffs = $event->staffs;
+        $volunteers = $event->volunteers;
+
+        return [
+            'students' => $students,
+            'parents' => $parents,
+            'staffs' => $staffs,
+            'volunteers' => $volunteers,
+        ];
+    }
+
+    public function getParticipantByTypeAndId($type, $id)
+    {
+        switch ($type) {
+            case 'students':
+                $studentService = app(StudentService::class);
+                return $studentService->getById($id);
+            case 'parents':
+                $parentService = app(ParentService::class);
+                return $parentService->getById($id);
+            case 'staffs':
+                $staffService = app(StaffService::class);
+                return $staffService->getById($id);
+            case 'volunteers':
+                $volunteerService = app(VolunteerService::class);
+                return $volunteerService->getById($id);
+            default:
+                \Log::error('EventService (getParticipantByTypeAndId): Invalid Participant Type - ' . $type);
+        }
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionTypeTable extends Migration
+class AddHasPermissionToParticipantables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateTransactionTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_type', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('participantables', function (Blueprint $table) {
+            $table->tinyInteger('has_permission')->after('event_id')->default(0);
         });
     }
 
@@ -27,6 +25,8 @@ class CreateTransactionTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction_type');
+        Schema::table('participantables', function (Blueprint $table) {
+            $table->dropColumn('has_permission');
+        });
     }
 }

@@ -31,4 +31,9 @@ class StaffService
     {
         return $this->staffRepository->findAllWithIdName();
     }
+
+    public function getById($id)
+    {
+        return $this->staffRepository->find($id);
+    }
 }

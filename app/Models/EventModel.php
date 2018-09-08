@@ -20,21 +20,21 @@ class EventModel extends Model
 
     public function students()
     {
-        return $this->morphedByMany('App\Models\StudentModel', 'participantable', null, 'event_id');
+        return $this->morphedByMany('App\Models\StudentModel', 'participantable', null, 'event_id')->withPivot('has_permission');
     }
 
     public function staffs()
     {
-        return $this->morphedByMany('App\Models\StaffModel', 'participantable', null, 'event_id');
+        return $this->morphedByMany('App\Models\StaffModel', 'participantable', null, 'event_id')->withPivot('has_permission');
     }
 
     public function volunteers()
     {
-        return $this->morphedByMany('App\Models\VolunteerModel', 'participantable', null, 'event_id');
+        return $this->morphedByMany('App\Models\VolunteerModel', 'participantable', null, 'event_id')->withPivot('has_permission');
     }
 
     public function parents()
     {
-        return $this->morphedByMany('App\Models\ParentModel', 'participantable', null, 'event_id');
+        return $this->morphedByMany('App\Models\ParentModel', 'participantable', null, 'event_id')->withPivot('has_permission');
     }
 }

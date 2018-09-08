@@ -32,4 +32,9 @@ class VolunteerService
     {
         return $this->volunteerRepository->findAllWithIdName();
     }
+
+    public function getById($id)
+    {
+        return $this->volunteerRepository->find($id);
+    }
 }

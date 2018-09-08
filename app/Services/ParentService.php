@@ -31,4 +31,9 @@ class ParentService
     {
         return $this->parentRepository->findAllWithIdName();
     }
+
+    public function getById($id)
+    {
+        return $this->parentRepository->find($id);
+    }
 }

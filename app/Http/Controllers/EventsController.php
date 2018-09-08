@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\EventService;
 use App\Services\EventTypeService;
 use App\Services\OrganiserService;
+use App\Services\TransactionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -18,17 +19,24 @@ class EventsController extends Controller
      * @var EventTypeService
      */
     private $eventTypeService;
+    /**
+     * @var TransactionService
+     */
+    private $transactionService;
 
     /**
      * EventsController constructor.
      * @param EventService $eventService
      * @param EventTypeService $eventTypeService
+     * @param TransactionService $transactionService
      */
     public function __construct(EventService $eventService,
-                                EventTypeService $eventTypeService)
+                                EventTypeService $eventTypeService,
+                                TransactionService $transactionService)
     {
         $this->eventService = $eventService;
         $this->eventTypeService = $eventTypeService;
+        $this->transactionService = $transactionService;
     }
 
     /**
@@ -155,10 +163,11 @@ class EventsController extends Controller
     public function invitedParticipants($eventId)
     {
         $event = $this->eventService->getEventById($eventId);
-        $students = $event->students;
-        $parents = $event->parents;
-        $staffs = $event->staffs;
-        $volunteers = $event->volunteers;
+        $participants = $this->eventService->getInvitedParticipants($event);
+        $students = $participants['students'];
+        $parents = $participants['parents'];
+        $staffs = $participants['staffs'];
+        $volunteers = $participants['volunteers'];
 
         return view('events.participants.index')->with([
             'event' => $event,
@@ -191,6 +200,31 @@ class EventsController extends Controller
         $participants = Input::get('participants');
 
         $this->eventService->storeParticipants($eventId, $participants, $type);
+
+        return redirect('events/'.$eventId.'/participants');
+    }
+
+    public function purchaseEventTicket($eventId, $participantId)
+    {
+        $participantType = Input::get('type');
+        $event = $this->eventService->getEventById($eventId);
+        $participant = $this->eventService->getParticipantByTypeAndId($participantType, $participantId);
+
+        return view('events.purchase.create')->with([
+            'event' => $event,
+            'participant' => $participant,
+            'participantType' => $participantType
+        ]);
+    }
+
+    public function storePurchaseEventTicket($eventId, $participantId)
+    {
+        $event = $this->eventService->getEventById($eventId);
+        $amount = Input::get('amount');
+        $participantType = Input::get('type');
+        $participant = $this->eventService->getParticipantByTypeAndId($participantType, $participantId);
+
+        $this->transactionService->purchaseTicket($event, $amount, $participant);
 
         return redirect('events/'.$eventId.'/participants');
     }

@@ -15,12 +15,20 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th></th>
                     </tr>
 
                     @foreach($students as $student)
                         <tr>
                             <td>{{$student->id}}</td>
                             <td>{{$student->name}}</td>
+                            <td>
+                                @if($student->pivot->has_permission)
+                                    <span class="text-success">Got Permission</span>
+                                @else
+                                    <a href="{{URL::to('events/'.$event->id.'/participant/'.$student->id.'/purchase?type=students')}}"><button class="btn-small btn-warning">Purchase Ticket</button></a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </table>
@@ -34,12 +42,20 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th></th>
                     </tr>
 
                     @foreach($parents as $parent)
                         <tr>
                             <td>{{$parent->id}}</td>
                             <td>{{$parent->name}}</td>
+                            <td>
+                                @if($parent->pivot->has_permission)
+                                    <span class="text-success">Got Permission</span>
+                                @else
+                                    <a href="{{URL::to('events/'.$event->id.'/participant/'.$parent->id.'/purchase?type=parents')}}"><button class="btn-small btn-warning">Purchase Ticket</button></a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </table>
@@ -54,12 +70,20 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th></th>
                     </tr>
 
                     @foreach($staffs as $staff)
                         <tr>
                             <td>{{$staff->id}}</td>
                             <td>{{$staff->name}}</td>
+                            <td>
+                                @if($staff->pivot->has_permission)
+                                    <span class="text-success">Got Permission</span>
+                                @else
+                                    <a href="{{URL::to('events/'.$event->id.'/participant/'.$staff->id.'/purchase?type=staffs')}}"><button class="btn-small btn-warning">Purchase Ticket</button></a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </table>
@@ -73,12 +97,20 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th></th>
                     </tr>
 
                     @foreach($volunteers as $volunteer)
                         <tr>
                             <td>{{$volunteer->id}}</td>
                             <td>{{$volunteer->name}}</td>
+                            <td>
+                                @if($volunteer->pivot->has_permission)
+                                    <span class="text-success">Got Permission</span>
+                                @else
+                                    <a href="{{URL::to('events/'.$event->id.'/participant/'.$volunteer->id.'/purchase?type=volunteers')}}"><button class="btn-small btn-warning">Purchase Ticket</button></a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </table>

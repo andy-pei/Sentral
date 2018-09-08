@@ -31,4 +31,9 @@ class StudentService
     {
         return $this->studentRepository->findAllWithIdName();
     }
+
+    public function getById($id)
+    {
+        return $this->studentRepository->find($id);
+    }
 }

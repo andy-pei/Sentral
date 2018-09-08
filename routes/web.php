@@ -28,4 +28,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('events/{id}/participants', 'EventsController@invitedParticipants');
     Route::get('events/{id}/participants/update', 'EventsController@updateInvitedParticipants');
     Route::post('events/{id}/participants/update', 'EventsController@storeInvitedParticipants');
+    Route::get('events/{id}/participant/{participantid}/purchase', 'EventsController@purchaseEventTicket');
+    Route::post('events/{id}/participant/{participantid}/purchase', 'EventsController@storePurchaseEventTicket');
 });
