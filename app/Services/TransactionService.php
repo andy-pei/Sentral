@@ -30,11 +30,13 @@ class TransactionService
 
     public function purchaseTicket(EventModel $event, $amount, $participant)
     {
-        //get existing transactions for the event
+
         $participant->transactions()->create([
             'event_id' => $event->id,
             'amount' => $amount
         ]);
+
+        //get existing transactions for the event
         $totalPurchaseddAmount = $participant->transactions()->where('event_id', $event->id)->sum('amount');
 
         if($totalPurchaseddAmount >= $event->ticket_price) {
@@ -42,5 +44,26 @@ class TransactionService
             $pivot->has_permission = true;
             $pivot->save();
         }
+
+        return true;
+    }
+
+    public function validPurchaseTicket(EventModel $event, $participant) {
+        if(get_class($participant) == 'App\Models\ParentModel') {
+            $valid = false;
+            $totalPurchasedAmount = 0;
+            $students = $participant->students;
+            foreach ($students as $student) {
+                $hasPermission = $student->events()->where('participantables.event_id', $event->id)->first()->pivot->has_permission;
+                if($hasPermission) {
+                    $valid = true;
+                }
+
+            }
+
+            return $valid;
+        }
+
+        return true;
     }
 }

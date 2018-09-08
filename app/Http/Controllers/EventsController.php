@@ -209,12 +209,20 @@ class EventsController extends Controller
         $participantType = Input::get('type');
         $event = $this->eventService->getEventById($eventId);
         $participant = $this->eventService->getParticipantByTypeAndId($participantType, $participantId);
+        $validate = $this->transactionService->validPurchaseTicket($event, $participant);
 
-        return view('events.purchase.create')->with([
-            'event' => $event,
-            'participant' => $participant,
-            'participantType' => $participantType
-        ]);
+        if($validate) {
+            return view('events.purchase.create')->with([
+                'event' => $event,
+                'participant' => $participant,
+                'participantType' => $participantType
+            ]);
+        }
+
+        return redirect('events/'.$eventId.'/participants')
+            ->with([
+                'flash_message' => 'Process Denied - You need to purchase tickets for your children first'
+            ]);
     }
 
     public function storePurchaseEventTicket($eventId, $participantId)
