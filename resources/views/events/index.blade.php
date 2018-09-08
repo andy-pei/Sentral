@@ -30,7 +30,7 @@
                         <td>{{$event->venue}}</td>
                         <td>
                             <a href="{{URL::to('events/'.$event->id.'/edit')}}"><button class="btn btn-primary">Edit</button></a>
-                            <a href="{{URL::to('events/delete')}}"><button class="btn btn-primary">Delete</button></a>
+                            <a href="{{URL::to('events/delete/'.$event->id)}}"><button class="btn btn-primary">Delete</button></a>
                         </td>
                     </tr>
                 @endforeach

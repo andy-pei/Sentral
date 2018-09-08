@@ -34,4 +34,11 @@ abstract class BaseRepository
         $model = $this->find($id);
         return $model->update($data);
     }
+
+    public function deleteById($id)
+    {
+        $model = $this->model->findOrFail($id);
+
+        return $model->delete();
+    }
 }

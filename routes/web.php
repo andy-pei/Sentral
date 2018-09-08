@@ -21,4 +21,5 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('events', 'EventsController');
+    Route::get('events/delete/{id}', 'EventsController@destroy');
 });

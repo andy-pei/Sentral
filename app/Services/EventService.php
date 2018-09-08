@@ -45,4 +45,9 @@ class EventService
     {
         return $this->eventRepository->updateWithId($id, array_only($data, ['event_type_id', 'description', 'event_time', 'venue']));
     }
+
+    public function deleteById($id)
+    {
+        return $this->eventRepository->deleteById($id);
+    }
 }

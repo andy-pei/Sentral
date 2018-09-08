@@ -117,6 +117,7 @@ class EventsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->eventService->deleteById($id);
+        return redirect('events');
     }
 }
