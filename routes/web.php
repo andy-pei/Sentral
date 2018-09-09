@@ -30,4 +30,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('events/{id}/participants/update', 'EventsController@storeInvitedParticipants');
     Route::get('events/{id}/participant/{participantid}/purchase', 'EventsController@purchaseEventTicket');
     Route::post('events/{id}/participant/{participantid}/purchase', 'EventsController@storePurchaseEventTicket');
+    Route::get('events/{id}/participant/approved', 'EventsController@approvedParticipants');
 });

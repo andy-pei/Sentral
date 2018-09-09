@@ -171,4 +171,19 @@ class EventService
                 \Log::error('EventService (getParticipantByTypeAndId): Invalid Participant Type - ' . $type);
         }
     }
+
+    public function getAllApprovedParticipants(EventModel $event)
+    {
+        $students = $event->students()->where('participantables.has_permission', 1)->get();
+        $parents = $event->parents()->where('participantables.has_permission', 1)->get();
+        $staffs = $event->staffs()->where('participantables.has_permission', 1)->get();
+        $volunteers = $event->volunteers()->where('participantables.has_permission', 1)->get();
+
+        return [
+            'students' => $students,
+            'parents' => $parents,
+            'staffs' => $staffs,
+            'volunteers' => $volunteers,
+        ];
+    }
 }

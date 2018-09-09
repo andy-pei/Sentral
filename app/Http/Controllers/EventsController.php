@@ -236,4 +236,23 @@ class EventsController extends Controller
 
         return redirect('events/'.$eventId.'/participants');
     }
+
+    public function approvedParticipants($eventId)
+    {
+        $event = $this->eventService->getEventById($eventId);
+        $approvedParticipants = $this->eventService->getAllApprovedParticipants($event);
+
+        $students = $approvedParticipants['students'];
+        $parents = $approvedParticipants['parents'];
+        $staffs = $approvedParticipants['staffs'];
+        $volunteers = $approvedParticipants['volunteers'];
+
+        return view('events.participants.approved.index')->with([
+            'event' => $event,
+            'students' => $students,
+            'parents' => $parents,
+            'staffs' => $staffs,
+            'volunteers' => $volunteers
+        ]);
+    }
 }

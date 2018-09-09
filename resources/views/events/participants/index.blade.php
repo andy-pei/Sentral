@@ -16,6 +16,8 @@
                 <h2>All invited</h2>
 
                 <p class="lead">All invited participants for event - {{$event->description}}</p>
+
+                <p>Click <a class="btn btn-sm btn-success" href="{{URL::to('events/'.$event->id.'/participant/approved')}}" role="button">View</a> to view List of Participants with Permission/Payment</p>
             </div>
 
             <div class="col-lg-3 col-md-3">
