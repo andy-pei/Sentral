@@ -14,8 +14,5 @@
             {!! Form::submit('Add', array('class' => 'form-control btn btn-primary')) !!}
             {!! Form::close() !!}
         </div>
-        <footer class="footer">
-            <p>&copy; Sentral challenge test - Jialei</p>
-        </footer>
     </div>
 @endsection

@@ -10,7 +10,6 @@
                 <div class="panel-body">
                     Welcome to Sentral!
                     <ul>
-                        <li><a href="events">Users</a></li>
                         <li><a href="events">Events</a></li>
                     </ul>
                 </div>

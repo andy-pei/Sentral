@@ -48,7 +48,7 @@ class EventTable extends React.Component {
                     <th>Venue</th>
                     <th>Driving</th>
                     <th>Walking</th>
-                    <th></th>
+                    <th className="action"></th>
                 </tr>
                 </thead>
 
