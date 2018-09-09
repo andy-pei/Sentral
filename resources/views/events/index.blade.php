@@ -17,6 +17,8 @@
                     <th>Type</th>
                     <th>Time</th>
                     <th>Venue</th>
+                    <th>Driving</th>
+                    <th>Walking</th>
                     <th></th>
                 </tr>
 
@@ -27,6 +29,8 @@
                         <td>{{$event->event_type_id}}</td>
                         <td>{{$event->event_time}}</td>
                         <td>{{$event->venue}}</td>
+                        <td>{{$event->driving_distance . ' / ' . $event->driving_duration}}</td>
+                        <td>{{$event->walking_distance . ' / ' . $event->walking_duration}}</td>
                         <td>
                             <a href="{{URL::to('events/'.$event->id.'/organisers')}}"><button class="btn btn-primary">Organisers</button></a>
                             <a href="{{URL::to('events/'.$event->id.'/participants')}}"><button class="btn btn-primary">Invited</button></a>

@@ -11,6 +11,8 @@ namespace App\Services;
 
 use App\Models\EventModel;
 use App\Repositories\EventRepository;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class EventService
 {
@@ -18,14 +20,21 @@ class EventService
      * @var EventRepository
      */
     private $eventRepository;
+    /**
+     * @var Client
+     */
+    private $client;
 
     /**
      * EventService constructor.
      * @param EventRepository $eventRepository
+     * @param Client $client
      */
-    public function __construct(EventRepository $eventRepository)
+    public function __construct(EventRepository $eventRepository,
+                                Client $client)
     {
         $this->eventRepository = $eventRepository;
+        $this->client = $client;
     }
 
     public function allEvents()
@@ -35,7 +44,40 @@ class EventService
 
     public function createEvent($data)
     {
-        $this->eventRepository->create(array_only($data, ['event_type_id', 'description', 'event_time', 'venue']));
+        $formattedAddress = str_replace(' ', '+', array_get($data, 'venue'));
+        $drivingDistance = '';
+        $drivingDuration = '';
+
+        try {
+            $response = $this->client->get(config('directionsapi.base_url') . '?origin=' . config('directionsapi.origin_address') . '&destination=' . $formattedAddress . '&key=' . config('directionsapi.key'));
+        } catch (ClientException $e) {
+            \Log::info('EventService (createEvent): ' . $e->getMessage());
+        }
+
+        if($response->getStatusCode() == 200) {
+            $locationDetails = json_decode((String)$response->getBody(), true);
+            $drivingDistance = array_get($locationDetails, 'routes.0.legs.0.distance.text');
+            $drivingDuration = array_get($locationDetails, 'routes.0.legs.0.duration.text');
+
+        }
+
+        //walking
+        try {
+            $response = $this->client->get(config('directionsapi.base_url') . '?origin=' . config('directionsapi.origin_address') . '&destination=' . $formattedAddress . '&mode=walking&key=' . config('directionsapi.key'));
+        } catch (ClientException $e) {
+            \Log::info('EventService (createEvent): ' . $e->getMessage());
+        }
+
+        if($response->getStatusCode() == 200) {
+            $locationDetails = json_decode((String)$response->getBody(), true);
+            $walkingDdistance = array_get($locationDetails, 'routes.0.legs.0.distance.text');
+            $walkingDuration = array_get($locationDetails, 'routes.0.legs.0.duration.text');
+
+        }
+
+        $data = array_merge(array_only($data, ['event_type_id', 'description', 'event_time', 'venue']), ['driving_distance' => $drivingDistance, 'driving_duration' => $drivingDuration, 'walking_distance' => $walkingDdistance, 'walking_duration' => $walkingDuration]);
+
+        $this->eventRepository->create($data);
     }
 
     public function getEventById($id) {
