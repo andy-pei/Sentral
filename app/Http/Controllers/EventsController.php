@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Presenters\PresenterCollection;
 use App\Services\EventService;
 use App\Services\EventTypeService;
 use App\Services\OrganiserService;
@@ -47,8 +48,13 @@ class EventsController extends Controller
     public function index()
     {
         $events = $this->eventService->allEvents();
+        $eventsPresenter = new PresenterCollection('App\Presenters\EventPresenter', $events);
+        $eventTypesAsJson = $this->eventTypeService->getAllEventTypesAsJson();
+
         return view('events.index')->with([
-            'events' => $events
+            'events' => $events,
+            'eventsPresenter' => $eventsPresenter,
+            'eventTypesAsJson' => $eventTypesAsJson,
         ]);
     }
 

@@ -10,7 +10,7 @@ class EventModel extends Model
     protected $guarded = array();
 
     public function eventType() {
-        $this->belongsTo('App\Models\EventTypeModel', 'event_type_id');
+        return $this->belongsTo('App\Models\EventTypeModel', 'event_type_id');
     }
 
     public function organisers()

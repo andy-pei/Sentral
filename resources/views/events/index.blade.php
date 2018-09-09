@@ -10,6 +10,9 @@
 
                 <p><a class="btn btn-lg btn-success" href="events/create" role="button">Create Event</a></p>
             </div>
+
+            <div id="events" class="row"></div>
+
             <table class="table">
                 <tr>
                     <th>ID</th>
@@ -43,3 +46,14 @@
         </div>
     </div>
 @endsection
+
+@section('footer')
+
+    <script type="text/javascript">
+        var posts = {!! $eventsPresenter->toJson() !!};
+        var eventTypes = {!! $eventTypesAsJson !!};
+        debugger;
+    </script>
+
+    <script src="/js/compiled/events.js"></script>
+@stop

@@ -35,4 +35,18 @@ class EventTypeService
     {
         return $this->eventTypeRepository->findAllWithIdName();
     }
+
+    public function getAllEventTypesAsJson()
+    {
+        $data = array();
+        $eventTypes = $this->getAllEventTypesWithIdName();
+        foreach ($eventTypes as $id => $eventType) {
+            $dataTemp = array();
+            $dataTemp['id'] = $id;
+            $dataTemp['name'] = $eventType;
+            $data[] = $dataTemp;
+        }
+
+        return json_encode($data);
+    }
 }

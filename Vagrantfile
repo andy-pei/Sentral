@@ -13,8 +13,9 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again p
 sudo apt-get install -y vim curl python-software-properties
 sudo add-apt-repository -y ppa:ondrej/php
 sudo apt-get update
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 
-sudo apt-get install -y php7.1 apache2 libapache2-mod-php7.1 php7.1-curl php7.1-gd php7.1-mcrypt php7.1-readline mysql-server-5.5 php7.1-mysql git-core php-xdebug beanstalkd supervisor memcached php-memcached php7.1-soap php7.1-mbstring php7.1-xml php7.1-zip
+sudo apt-get install -y php7.1 apache2 libapache2-mod-php7.1 php7.1-curl php7.1-gd php7.1-mcrypt php7.1-readline mysql-server-5.5 php7.1-mysql git-core php-xdebug beanstalkd supervisor memcached php-memcached nodejs php7.1-soap php7.1-mbstring php7.1-xml php7.1-zip
 
 mysql -u root -proot -e'create database sentral'
 
