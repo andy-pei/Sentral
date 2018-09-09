@@ -30,7 +30,7 @@ class EventTable extends React.Component {
 
         this.props.events.forEach((event) => {
 
-            if(event.description.indexOf(this.props.filterText) === -1 || (this.props.filterType && this.props.filterType != event.event_type_id)) {
+            if(event.description.indexOf(this.props.filterText) === -1 || event.event_time.indexOf(this.props.filterDateTime) === -1 || (this.props.filterType && this.props.filterType != event.event_type_id)) {
                 return;
             }
 
@@ -77,10 +77,15 @@ class Filter extends React.Component {
         super(props);
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
         this.handleFilterTypeChange = this.handleFilterTypeChange.bind(this);
+        this.handleFilterDateTimeChange = this.handleFilterDateTimeChange.bind(this);
     }
 
     handleFilterTextChange(e) {
         this.props.onHandleFilterTextChange(e.target.value);
+    }
+
+    handleFilterDateTimeChange(e) {
+        this.props.onHandleFilterDateTimeChange(e.target.value);
     }
 
     handleFilterTypeChange(e) {
@@ -101,11 +106,14 @@ class Filter extends React.Component {
                 <div className="form-group col-sm-2 col-md-2 col-lg-2">
                     <input type="text" className="form-control" value={this.props.filterText} onChange={this.handleFilterTextChange} placeholder="Filter By Description" />
                 </div>
-                <div className="form-group col-sm-3 col-md-3 col-lg-3">
+                <div className="form-group col-sm-2 col-md-2 col-lg-2">
                     <span>Filter by type</span>
                     <select  className="form-control" value={this.props.filterType} onChange={this.handleFilterTypeChange}>
                         {options}
                     </select>
+                </div>
+                <div className="form-group col-sm-2 col-md-2 col-lg-2">
+                    <input type="text" className="form-control" value={this.props.filterDateTime} onChange={this.handleFilterDateTimeChange} placeholder="Filter By Datetime" />
                 </div>
             </form>
         );
@@ -119,9 +127,11 @@ class SearchAbleEvent extends React.Component {
 
         this.filterTextChange = this.filterTextChange.bind(this);
         this.filterTypeChange = this.filterTypeChange.bind(this);
+        this.filterDateTimeChange = this.filterDateTimeChange.bind(this);
 
         this.state = {
             filterText: '',
+            filterDateTime: '',
             filterType: 0,
             events: this.props.events
         }
@@ -130,6 +140,12 @@ class SearchAbleEvent extends React.Component {
     filterTextChange(filterText) {
         this.setState({
             filterText: filterText
+        });
+    }
+
+    filterDateTimeChange(filterDateTime) {
+        this.setState({
+            filterDateTime: filterDateTime
         });
     }
 
@@ -142,8 +158,8 @@ class SearchAbleEvent extends React.Component {
     render() {
         return(
             <div>
-                <Filter filterText={this.state.filterText} filterType={this.state.filterType} eventTypes={this.props.eventTypes} onHandleFilterTextChange={this.filterTextChange} onHandleFilterTypeChange={this.filterTypeChange}/>
-                <EventTable events={this.state.events} filterText={this.state.filterText} filterType={this.state.filterType}/>
+                <Filter filterText={this.state.filterText} filterDateTime={this.state.filterDateTime} filterType={this.state.filterType} eventTypes={this.props.eventTypes} onHandleFilterTextChange={this.filterTextChange} onHandleFilterDateTimeChange={this.filterDateTimeChange} onHandleFilterTypeChange={this.filterTypeChange}/>
+                <EventTable events={this.state.events} filterText={this.state.filterText} filterDateTime={this.state.filterDateTime} filterType={this.state.filterType}/>
             </div>
         );
     }
