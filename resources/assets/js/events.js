@@ -10,6 +10,7 @@ class EventRow extends React.Component {
                 <td>{this.props.event.event_type}</td>
                 <td>{this.props.event.event_time}</td>
                 <td>{this.props.event.venue}</td>
+                <td>{this.props.event.price}</td>
                 <td>{this.props.event.driving_distance + ' / ' + this.props.event.driving_duration} </td>
                 <td>{this.props.event.walking_distance + ' / ' + this.props.event.walking_duration} </td>
                 <td>
@@ -46,6 +47,7 @@ class EventTable extends React.Component {
                     <th>Type</th>
                     <th>Time</th>
                     <th>Venue</th>
+                    <th>Price.$</th>
                     <th>Driving</th>
                     <th>Walking</th>
                     <th className="action"></th>

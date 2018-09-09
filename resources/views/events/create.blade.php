@@ -14,6 +14,9 @@
             {!! Form::label('description', 'Description') !!}
             {!! Form::input('text', 'description', '', array('class' => 'form-control')) !!}
 
+            {!! Form::label('ticket_price', 'Ticket Price') !!}
+            {!! Form::input('text', 'ticket_price', '', array('class' => 'form-control')) !!}
+
             {!! Form::label('event_time', 'Time') !!}
             {!! Form::input('datetime', 'event_time', '', array('class' => 'form-control')) !!}
 

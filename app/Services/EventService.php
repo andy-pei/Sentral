@@ -75,7 +75,7 @@ class EventService
 
         }
 
-        $data = array_merge(array_only($data, ['event_type_id', 'description', 'event_time', 'venue']), ['driving_distance' => $drivingDistance, 'driving_duration' => $drivingDuration, 'walking_distance' => $walkingDdistance, 'walking_duration' => $walkingDuration]);
+        $data = array_merge(array_only($data, ['event_type_id', 'description', 'event_time', 'venue', 'ticket_price']), ['driving_distance' => $drivingDistance, 'driving_duration' => $drivingDuration, 'walking_distance' => $walkingDdistance, 'walking_duration' => $walkingDuration]);
 
         $this->eventRepository->create($data);
     }
@@ -86,7 +86,7 @@ class EventService
 
     public function updateWithId($id, $data)
     {
-        return $this->eventRepository->updateWithId($id, array_only($data, ['event_type_id', 'description', 'event_time', 'venue']));
+        return $this->eventRepository->updateWithId($id, array_only($data, ['event_type_id', 'description', 'event_time', 'venue', 'ticket_price']));
     }
 
     public function deleteById($id)

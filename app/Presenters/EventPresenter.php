@@ -23,6 +23,7 @@ class EventPresenter extends Presenter implements Jsonable, Arrayable
             'event_type_id' => $this->resource->event_type_id,
             'event_time' => $this->resource->event_time,
             'venue' => $this->resource->venue,
+            'price' => $this->resource->ticket_price,
             'driving_distance' => $this->resource->driving_distance,
             'driving_duration' => $this->resource->driving_duration,
             'walking_distance' => $this->resource->walking_distance,
