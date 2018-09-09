@@ -19,7 +19,7 @@
                     <th>Venue</th>
                     <th>Driving</th>
                     <th>Walking</th>
-                    <th></th>
+                    <th style="min-width: 300px;"></th>
                 </tr>
 
                 @foreach($events as $event)
@@ -32,10 +32,10 @@
                         <td>{{$event->driving_distance . ' / ' . $event->driving_duration}}</td>
                         <td>{{$event->walking_distance . ' / ' . $event->walking_duration}}</td>
                         <td>
-                            <a href="{{URL::to('events/'.$event->id.'/organisers')}}"><button class="btn btn-primary">Organisers</button></a>
-                            <a href="{{URL::to('events/'.$event->id.'/participants')}}"><button class="btn btn-primary">Invited</button></a>
-                            <a href="{{URL::to('events/'.$event->id.'/edit')}}"><button class="btn btn-primary">Edit</button></a>
-                            <a href="{{URL::to('events/delete/'.$event->id)}}"><button class="btn btn-primary">Delete</button></a>
+                            <a href="{{URL::to('events/'.$event->id.'/organisers')}}"><button class="btn-sm btn-primary">Organisers</button></a>
+                            <a href="{{URL::to('events/'.$event->id.'/participants')}}"><button class="btn-sm btn-primary">Invited</button></a>
+                            <a href="{{URL::to('events/'.$event->id.'/edit')}}"><button class="btn-sm btn-primary">Edit</button></a>
+                            <a href="{{URL::to('events/delete/'.$event->id)}}"><button class="btn-sm btn-primary">Delete</button></a>
                         </td>
                     </tr>
                 @endforeach
