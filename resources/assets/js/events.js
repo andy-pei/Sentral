@@ -31,7 +31,7 @@ class EventTable extends React.Component {
 
         this.props.events.forEach((event) => {
 
-            if(event.description.indexOf(this.props.filterText) === -1 || event.event_time.indexOf(this.props.filterDateTime) === -1 || event.venue.indexOf(this.props.filterVenue) === -1 || (this.props.filterType && this.props.filterType != event.event_type_id)) {
+            if(event.description.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1 || event.event_time.indexOf(this.props.filterDateTime) === -1 || event.venue.toLowerCase().indexOf(this.props.filterVenue.toLowerCase()) === -1 || (this.props.filterType && this.props.filterType != event.event_type_id)) {
                 return;
             }
 
