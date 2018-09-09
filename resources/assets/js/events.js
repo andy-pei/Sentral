@@ -30,7 +30,7 @@ class EventTable extends React.Component {
 
         this.props.events.forEach((event) => {
 
-            if(event.description.indexOf(this.props.filterText) === -1 || event.event_time.indexOf(this.props.filterDateTime) === -1 || (this.props.filterType && this.props.filterType != event.event_type_id)) {
+            if(event.description.indexOf(this.props.filterText) === -1 || event.event_time.indexOf(this.props.filterDateTime) === -1 || event.venue.indexOf(this.props.filterVenue) === -1 || (this.props.filterType && this.props.filterType != event.event_type_id)) {
                 return;
             }
 
@@ -78,6 +78,7 @@ class Filter extends React.Component {
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
         this.handleFilterTypeChange = this.handleFilterTypeChange.bind(this);
         this.handleFilterDateTimeChange = this.handleFilterDateTimeChange.bind(this);
+        this.handleFilterVenueChange = this.handleFilterVenueChange.bind(this);
     }
 
     handleFilterTextChange(e) {
@@ -86,6 +87,10 @@ class Filter extends React.Component {
 
     handleFilterDateTimeChange(e) {
         this.props.onHandleFilterDateTimeChange(e.target.value);
+    }
+
+    handleFilterVenueChange(e) {
+        this.props.onHandleFilterVenueChange(e.target.value);
     }
 
     handleFilterTypeChange(e) {
@@ -115,6 +120,9 @@ class Filter extends React.Component {
                 <div className="form-group col-sm-2 col-md-2 col-lg-2">
                     <input type="text" className="form-control" value={this.props.filterDateTime} onChange={this.handleFilterDateTimeChange} placeholder="Filter By Datetime" />
                 </div>
+                <div className="form-group col-sm-2 col-md-2 col-lg-2">
+                    <input type="text" className="form-control" value={this.props.filterVenue} onChange={this.handleFilterVenueChange} placeholder="Filter By Venue" />
+                </div>
             </form>
         );
     }
@@ -128,10 +136,12 @@ class SearchAbleEvent extends React.Component {
         this.filterTextChange = this.filterTextChange.bind(this);
         this.filterTypeChange = this.filterTypeChange.bind(this);
         this.filterDateTimeChange = this.filterDateTimeChange.bind(this);
+        this.filterVenueChange = this.filterVenueChange.bind(this);
 
         this.state = {
             filterText: '',
             filterDateTime: '',
+            filterVenue: '',
             filterType: 0,
             events: this.props.events
         }
@@ -149,6 +159,12 @@ class SearchAbleEvent extends React.Component {
         });
     }
 
+    filterVenueChange(filterVenue) {
+        this.setState({
+            filterVenue: filterVenue
+        });
+    }
+
     filterTypeChange(filterType) {
         this.setState({
             filterType: parseInt(filterType)
@@ -158,8 +174,8 @@ class SearchAbleEvent extends React.Component {
     render() {
         return(
             <div>
-                <Filter filterText={this.state.filterText} filterDateTime={this.state.filterDateTime} filterType={this.state.filterType} eventTypes={this.props.eventTypes} onHandleFilterTextChange={this.filterTextChange} onHandleFilterDateTimeChange={this.filterDateTimeChange} onHandleFilterTypeChange={this.filterTypeChange}/>
-                <EventTable events={this.state.events} filterText={this.state.filterText} filterDateTime={this.state.filterDateTime} filterType={this.state.filterType}/>
+                <Filter filterText={this.state.filterText} filterDateTime={this.state.filterDateTime} filterVenue={this.state.filterVenue} filterType={this.state.filterType} eventTypes={this.props.eventTypes} onHandleFilterTextChange={this.filterTextChange} onHandleFilterDateTimeChange={this.filterDateTimeChange} onHandleFilterVenueChange={this.filterVenueChange} onHandleFilterTypeChange={this.filterTypeChange}/>
+                <EventTable events={this.state.events} filterText={this.state.filterText} filterDateTime={this.state.filterDateTime} filterVenue={this.state.filterVenue} filterType={this.state.filterType}/>
             </div>
         );
     }
